@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import FormularioCadastro from './FormularioCadastro'; // Importe o componente do formulário de cadastro
-import FormularioEntrar from './FormularioEntrar'; // Importe o componente do formulário de entrar
+import FormularioCadastro from './FormularioCadastro';
+import FormularioEntrar from './FormularioEntrar'; 
 
 
 
