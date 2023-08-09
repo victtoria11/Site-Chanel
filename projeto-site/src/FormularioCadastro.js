@@ -38,7 +38,7 @@ const FormularioCadastro = () => {
   };  
 
   return (
-    <Container maxWidth="sm">     
+    <Container maxWidth="sm">   
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             label="CPF"
