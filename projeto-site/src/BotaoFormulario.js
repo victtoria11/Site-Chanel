@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import FormularioCadastro from './FormularioCadastro'; // Importe o componente do formulário de cadastro
 import FormularioEntrar from './FormularioEntrar'; // Importe o componente do formulário de entrar
+import  Typography  from '@mui/material/Typography';
 
 
 
