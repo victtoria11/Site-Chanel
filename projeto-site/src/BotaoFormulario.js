@@ -7,7 +7,6 @@ import  Typography  from '@mui/material/Typography';
 
 
 
-
 const Botao = () => {
     const [mostrarFormularioEntrar, setMostrarFormularioEntrar] = useState(true);
     const [mostrarFormularioCadastro, setMostrarFormularioCadastro] = useState(false);

@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header sections={sections} title="Meu Site" />
+      <Header sections={sections}/>
       <Botao />
     </div>
   );
