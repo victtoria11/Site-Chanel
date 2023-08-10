@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
+
 const FormularioCadastro = () => {
   const [cpf, setCPF] = useState('');
   const [nome, setNome] = useState('');
@@ -46,6 +47,7 @@ const FormularioCadastro = () => {
             margin="normal"
             value={cpf}
             onChange={(e) => setCPF(e.target.value)}
+            variant="standard"
           />
           <TextField
             label="Nome"
@@ -53,6 +55,7 @@ const FormularioCadastro = () => {
             margin="normal"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
+            variant="standard"
           />
           <TextField
             label="Email"
@@ -60,6 +63,7 @@ const FormularioCadastro = () => {
             fullWidth
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            variant="standard"
           />
           <TextField
             label="Senha"
@@ -67,6 +71,7 @@ const FormularioCadastro = () => {
             fullWidth
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
+            variant="standard"
           />
         </Box>
         <Button
