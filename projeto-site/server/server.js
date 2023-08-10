@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const db = require('./db'); // Módulo que lida com o banco de dados
+const db = require('./db'); 
+const bodyParser = require('body-parser');
 
 app.use(cors());
 app.use(express.json());
@@ -22,27 +23,31 @@ app.post('/api/cadastro', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
 
-app.post('/api/login', async (req, res) => {
+
+
+app.use(express.json());
+app.use(cors());
+app.use(bodyParser.json());
+
+app.post('/login', async (req, res) => {
   const { cpf, senha } = req.body;
 
   try {
-    const query = `SELECT * FROM usuarios WHERE cpf = $1 AND senha = $2`;
-    const values = [cpf, senha];
+    const result = await db.query('SELECT * FROM usuarios WHERE cpf = $1 AND senha = $2', [cpf, senha]);
 
-    const result = await db.query(query, values);
-
-    if (result.rowCount === 1) {
-      res.status(200).json({ message: 'Autenticação bem-sucedida!' });
+    if (result.rows.length === 1) {
+      res.status(200).json({ message: 'Login successful' });
     } else {
-      res.status(401).json({ error: 'Credenciais inválidas' });
+      res.status(401).json({ message: 'Invalid credentials' });
     }
   } catch (error) {
-    console.error('Erro ao autenticar:', error);
-    res.status(500).json({ error: 'Erro ao autenticar' });
+    console.error('Error during login:', error);
+    res.status(500).json({ message: 'An error occurred' });
   }
+});
+
+app.listen(3001, () => {
+  console.log('Server is running on port 3001');
 });
 
