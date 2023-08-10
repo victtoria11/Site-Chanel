@@ -33,7 +33,6 @@ function Header(props) {
         <Button variant="outlined" size="small" sx={{ position: 'absolute', right: 50,  marginTop: 8, marginBottom: 3}}>
           Sign up
         </Button>
-
       </Toolbar>
 
       <Toolbar
@@ -85,9 +84,9 @@ Header.propTypes = {
     PropTypes.shape({
       title: PropTypes.string.isRequired,
       url: PropTypes.string.isRequired,
-    }),
+    })
   ).isRequired,
-  title: PropTypes.string.isRequired,
 };
+
 
 export default Header;

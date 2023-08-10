@@ -8,9 +8,22 @@ const FormularioEntrar = () => {
   const [cpf, setCPF] = useState('');
   const [senha, setSenha] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Dados do formulário:', {cpf, senha });
+    try {
+      const response = await fetch('http://localhost:3001/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cpf, senha }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+    }
   };
 
   return (
@@ -32,7 +45,7 @@ const FormularioEntrar = () => {
             />
         </Box>
         <Button
-            onClick={handleSubmit}
+            type="submit" // Mudei de onClick para type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2, bgcolor: '#3bbeff'}}

@@ -25,3 +25,24 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
+
+app.post('/api/login', async (req, res) => {
+  const { cpf, senha } = req.body;
+
+  try {
+    const query = `SELECT * FROM usuarios WHERE cpf = $1 AND senha = $2`;
+    const values = [cpf, senha];
+
+    const result = await db.query(query, values);
+
+    if (result.rowCount === 1) {
+      res.status(200).json({ message: 'Autenticação bem-sucedida!' });
+    } else {
+      res.status(401).json({ error: 'Credenciais inválidas' });
+    }
+  } catch (error) {
+    console.error('Erro ao autenticar:', error);
+    res.status(500).json({ error: 'Erro ao autenticar' });
+  }
+});
+
