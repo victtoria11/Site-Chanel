@@ -10,7 +10,7 @@ app.post('/api/cadastro', async (req, res) => {
   const { cpf, nome, email, senha } = req.body;
 
   try {
-    const query = `INSERT INTO usuarios (cpf, nome, email, senha) VALUES ($1, $2, $3, $4)`;
+    const query = `INSERT INTO usuarios_chanel (cpf, nome, email, senha) VALUES ($1, $2, $3, $4)`;
     const values = [cpf, nome, email, senha];
 
     await db.query(query, values);
@@ -21,16 +21,14 @@ app.post('/api/cadastro', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
-
 app.post('/api/login', async (req, res) => {
+  console.log('Recebendo solicitação de login');
+
   const { cpf, senha } = req.body;
+  console.log('Dados recebidos:', cpf, senha);
 
   try {
-    const query = `SELECT * FROM usuarios WHERE cpf = $1 AND senha = $2`;
+    const query = `SELECT * FROM usuarios_chanel WHERE cpf = $1 AND senha = $2`;
     const values = [cpf, senha];
 
     const result = await db.query(query, values);
@@ -46,3 +44,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});

@@ -2,9 +2,9 @@ const { Pool } = require('pg') //constante que armazena a biblioteca do pg
 const cliente = new Pool({
     user: 'postgres',
     password: '123',
-    host: 'localhost',
+    host: '150.162.182.249',
     port: 5432,
-    database: 'chanel',
+    database: 'Chanel',
 });
 
 module.exports = cliente;
