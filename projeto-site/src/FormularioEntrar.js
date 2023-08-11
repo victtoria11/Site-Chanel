@@ -3,28 +3,27 @@ import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import axios from 'axios';
 
 const FormularioEntrar = () => {
   const [cpf, setCPF] = useState('');
   const [senha, setSenha] = useState('');
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await fetch('http://localhost:3001/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ cpf, senha }),
-      });
-
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error('Erro ao fazer login:', error);
-    }
-  };
+  
+    const handleSubmit = async () => {
+      try {
+        const response = await axios.post('http://localhost:3001/login', { cpf, senha });
+  
+        if (response.status === 200) {
+         
+          console.log(response.data.message);
+          window.location.href = '/FormularioCadastro.js';
+        } else {
+          console.log('Login failed');
+        }
+      } catch (error) {
+        console.error('Error during login:', error);
+      }
+    };
 
   return (
     <Container maxWidth="sm">     
@@ -45,6 +44,7 @@ const FormularioEntrar = () => {
             />
         </Box>
         <Button
+        onClick={handleSubmit}
             type="submit" // Mudei de onClick para type="submit"
             fullWidth
             variant="contained"

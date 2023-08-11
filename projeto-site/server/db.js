@@ -1,4 +1,4 @@
-const { Pool } = require('pg') //constante que armazena a biblioteca do pg
+const { Pool } = require('pg')
 const cliente = new Pool({
     user: 'postgres',
     password: '123',
