@@ -3,27 +3,36 @@ import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const FormularioEntrar = () => {
   const [cpf, setCPF] = useState('');
   const [senha, setSenha] = useState('');
-  
-    const handleSubmit = async () => {
-      try {
-        const response = await axios.post('http://localhost:3001/login', { cpf, senha });
-  
-        if (response.status === 200) {
-         
-          console.log(response.data.message);
-          window.location.href = '/FormularioCadastro.js';
-        } else {
-          console.log('Login failed');
-        }
-      } catch (error) {
-        console.error('Error during login:', error);
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cpf, senha }),
+      });
+
+      if (response.status === 200) {
+        const responseData = await response.json();
+        console.log(responseData.message);
+        navigate('/formulario-entrar'); // Redirecionar para uma página 
+      } else {
+        console.log('Login failed');
       }
-    };
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
+  };
+
 
   return (
     <Container maxWidth="sm">     
