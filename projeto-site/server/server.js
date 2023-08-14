@@ -46,7 +46,3 @@ app.post('/api/login', async (req, res) => {
     res.status(500).json({ message: 'An error occurred' });
   }
 });
-
-app.listen(3001, () => {
-  console.log('Server is running on port 3001');
-});

@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Botao from './BotaoFormulario';
 import Header from './Navbar';
 import FormularioEntrar from './FormularioEntrar';
-import FormularioCadastro from './FormularioCadastro'; // Importe o componente FormularioCadastro
+import FormularioCadastro from './FormularioCadastro'; 
 
 function App() {
   const sections = [

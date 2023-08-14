@@ -24,7 +24,7 @@ const FormularioEntrar = () => {
       if (response.status === 200) {
         const responseData = await response.json();
         console.log(responseData.message);
-        navigate('/formulario-entrar'); // Redirecionar para uma página 
+        navigate('/'); // Redirecionar para uma página 
       } else {
         console.log('Login failed');
       }
@@ -43,6 +43,7 @@ const FormularioEntrar = () => {
             fullWidth
             value={cpf}
             onChange={(e) => setCPF(e.target.value)}
+            variant="standard"
             />
             <TextField
             label="Senha"
@@ -50,6 +51,7 @@ const FormularioEntrar = () => {
             fullWidth
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
+            variant="standard"
             />
         </Box>
         <Button
@@ -57,7 +59,7 @@ const FormularioEntrar = () => {
             type="submit" // Mudei de onClick para type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2, bgcolor: '#3bbeff'}}
+            sx={{ mt: 3, mb: 2, bgcolor: 'black'}}
         >
             Entrar
         </Button>

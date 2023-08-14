@@ -28,7 +28,7 @@ const Botao = () => {
           <Button
               onClick={handleMostrarFormularioEntrar}
               sx={{
-                  mt: 3, mb: 2, borderBottom: mostrarFormularioEntrar ? '3px solid black' : '1px solid #3bbeff',  borderRadius: 0
+                  mt: 3, mb: 2, borderBottom: mostrarFormularioEntrar ? '3px solid black' : '1px solid #e0e0e0',  borderRadius: 0, color: 'black'
               }}
           >
               Entrar
@@ -36,7 +36,7 @@ const Botao = () => {
           <Button
               onClick={handleMostrarFormularioCadastro}
               sx={{
-                  mt: 3, mb: 2, borderBottom: mostrarFormularioCadastro ? '3px solid black' : '1px solid #3bbeff', borderRadius: 0,
+                  mt: 3, mb: 2, borderBottom: mostrarFormularioCadastro ? '3px solid black' : '1px solid #e0e0e0', borderRadius: 0, color: 'black'
               }}
           >
               Cadastrar

@@ -30,6 +30,9 @@ function Header(props) {
           >
             NOME
           </Typography>
+        <IconButton>
+          <SearchIcon></SearchIcon>
+        </IconButton>
         <Button variant="outlined" size="small" sx={{ position: 'absolute', right: 50,  marginTop: 8, marginBottom: 3}}>
           Sign up
         </Button>

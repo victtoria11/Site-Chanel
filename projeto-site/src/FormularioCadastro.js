@@ -78,7 +78,7 @@ const FormularioCadastro = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2, bgcolor: '#3bbeff'}}
+            sx={{ mt: 3, mb: 2, bgcolor: 'black'}}
             onClick={handleSubmit}
         >
             Criar Conta
