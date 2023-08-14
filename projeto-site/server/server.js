@@ -32,10 +32,11 @@ app.post('/api/login', async (req, res) => {
   console.log('Dados recebidos:', cpf, senha);
 
   try {
-    const query = `SELECT * FROM usuarios WHERE cpf = $1 AND senha = $2`;
+    const query = `SELECT * FROM usuarios_chanel WHERE cpf = $1 AND senha = $2`;
     const values = [cpf, senha];
 
-    await db.query(query, values);
+    const result = await db.query(query, values);
+
     if (result.rows.length === 1) {
       res.status(200).json({ message: 'Login successful' });
     } else {

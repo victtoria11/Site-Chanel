@@ -13,7 +13,7 @@ const FormularioEntrar = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('http://localhost:3001/login', {
+      const response = await fetch('http://localhost:3001/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
