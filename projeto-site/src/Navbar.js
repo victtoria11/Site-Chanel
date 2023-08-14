@@ -1,11 +1,14 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import ButtonGroup from '@mui/material/ButtonGroup';
 import SearchIcon from '@mui/icons-material/Search';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+
 
 
 function Header(props) {
@@ -30,12 +33,18 @@ function Header(props) {
           >
             NOME
           </Typography>
-        <IconButton>
-          <SearchIcon></SearchIcon>
-        </IconButton>
-        <Button variant="outlined" size="small" sx={{ position: 'absolute', right: 50,  marginTop: 8, marginBottom: 3}}>
-          Sign up
-        </Button>
+
+        <ButtonGroup variant="outlined" size="small" sx={{ position: 'absolute', right: 50,  marginTop: 8, marginBottom: 3}}>
+          <IconButton>
+            <SearchIcon></SearchIcon>
+          </IconButton>
+          <IconButton>
+            <PermIdentityIcon></PermIdentityIcon>
+          </IconButton>
+          <IconButton>
+            <ShoppingBasketIcon></ShoppingBasketIcon>
+          </IconButton>
+        </ButtonGroup>
       </Toolbar>
 
       <Toolbar
