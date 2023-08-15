@@ -5,6 +5,7 @@ import Botao from './BotaoFormulario';
 import Header from './Navbar';
 import FormularioEntrar from './FormularioEntrar';
 import FormularioCadastro from './FormularioCadastro'; 
+import Home from './Home';
 
 function App() {
   const sections = [
@@ -18,9 +19,11 @@ function App() {
       <div className="App">
         <Header sections={sections} />
         <Routes>
-          <Route path="/" element={<Botao />} />
+          <Route path='/' element={<Home />} />
+          <Route path="/login" element={<Botao />} />
           <Route path="/formulario-entrar" element={<FormularioEntrar />} />
-          <Route path="/formulario-cadastro" element={<FormularioCadastro />} /> {/* Adicione esta rota */}
+          <Route path="/formulario-cadastro" element={<FormularioCadastro />} /> 
+          
         </Routes>
       </div>
     </BrowserRouter>

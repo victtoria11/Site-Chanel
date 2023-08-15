@@ -27,7 +27,7 @@ function Header(props) {
             component="h2"
             variant="h3"
             color="inherit"
-            align="center"
+            align="right"
             noWrap
             sx={{ flex: 1, textAlign: 'center',  marginTop: 8, marginBottom: 3}}
           >
