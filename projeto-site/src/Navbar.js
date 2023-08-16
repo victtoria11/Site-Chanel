@@ -38,7 +38,7 @@ function Header(props) {
           <IconButton>
             <SearchIcon></SearchIcon>
           </IconButton>
-          <IconButton>
+          <IconButton >
             <PermIdentityIcon></PermIdentityIcon>
           </IconButton>
           <IconButton>
