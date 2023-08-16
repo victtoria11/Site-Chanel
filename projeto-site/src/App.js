@@ -19,8 +19,8 @@ function App() {
       <div className="App">
         <Header sections={sections} />
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path="/login" element={<Botao />} />
+          <Route path='/inicio' element={<Home />} />
+          <Route path="/" element={<Botao />} />
           <Route path="/formulario-entrar" element={<FormularioEntrar />} />
           <Route path="/formulario-cadastro" element={<FormularioCadastro />} /> 
           
