@@ -24,7 +24,7 @@ const FormularioEntrar = () => {
       if (response.status === 200) {
         const responseData = await response.json();
         console.log(responseData.message);
-        navigate('/inicio'); // Redirecionar para uma página 
+        navigate('inicio'); // Redirecionar para uma página 
       } else {
         console.log('Login failed');
       }
