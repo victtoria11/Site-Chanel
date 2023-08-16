@@ -6,6 +6,9 @@ import Header from './Navbar';
 import FormularioEntrar from './componentes/FormularioEntrar';
 import FormularioCadastro from './componentes/FormularioCadastro'; 
 import Home from './componentes/Home';
+import  {createContext} from 'react'
+
+const Authcontext = createContext()
 
 function App() {
   const sections = [
