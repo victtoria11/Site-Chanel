@@ -24,7 +24,8 @@ const FormularioEntrar = () => {
       if (response.status === 200) {
         const responseData = await response.json();
         console.log(responseData.message);
-        navigate('inicio'); // Redirecionar para uma página 
+        localStorage.setItem('authToken', responseData.token);
+        navigate('/inicio');
       } else {
         console.log('Login failed');
       }
@@ -32,7 +33,6 @@ const FormularioEntrar = () => {
       console.error('Error during login:', error);
     }
   };
-
 
   return (
     <Container maxWidth="sm">     
