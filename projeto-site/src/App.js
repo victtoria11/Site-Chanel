@@ -2,13 +2,11 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Botao from './componentes/BotaoFormulario';
-import Header from './Navbar';
+import Header from './componentes/Navbar';
 import FormularioEntrar from './componentes/FormularioEntrar';
 import FormularioCadastro from './componentes/FormularioCadastro'; 
 import Home from './componentes/Home';
-import  {createContext} from 'react'
 
-const Authcontext = createContext()
 
 function App() {
   const sections = [
