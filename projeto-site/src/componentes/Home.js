@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Grid, Typography, Link } from '@mui/material';
+import { Box, Grid, Typography, } from '@mui/material';
 import imgagemEscolhida from './imagens/side-view-woman-holding-perfume.jpg';
 
 const Home = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Busque os dados do usuário usando o token armazenado no armazenamento local
     const token = localStorage.getItem('authToken');
-
+  
     if (token) {
       fetch('http://localhost:3001/api/user', {
         method: 'GET',
@@ -17,21 +16,28 @@ const Home = () => {
         },
       })
         .then(response => response.json())
-        .then(userData => setUser(userData))
+        .then(userData => {
+          setUser(userData);
+          console.log(userData);
+        })
         .catch(error => console.error('Erro ao buscar dados do usuário:', error));
     }
   }, []);
+  
 
   const post = {
-    title: user ? `Bem-vindo, ${user.name}!` : 'Bem-vindo ao nosso App',
-    description: 'Descrição do post.',
-    linkText: 'Leia mais',
+    title: user ? `Bem-vindo(a), ${user.nome}!` : 'Bem-vindo ao nosso App',
     imageText: 'Texto alternativo da imagem',
   };
 
   return (
     <Grid container>
       <Grid item md={12}>
+        <Box sx={{backgroundColor: 'black'}} >
+          <Typography component="h1" variant="h4" color="white" gutterBottom sx={{ textAlign: 'center', padding: '5vh'}}>
+            {post.title}
+          </Typography>
+        </Box>
         <Box
           sx={{
             p: { xs: 3, md: 6 },
@@ -43,16 +49,7 @@ const Home = () => {
             backgroundSize: 'cover',
           }}
         >
-          <Typography component="h1" variant="h3" color="inherit" gutterBottom sx={{ textAlign: 'center' }}>
-            {post.title}
-          </Typography>
-          <Typography variant="h5" color="inherit" paragraph>
-            {post.description}
-          </Typography>
-          <Link variant="subtitle1" href="#">
-            {post.linkText}
-          </Link>
-        </Box>
+        </Box>       
       </Grid>
     </Grid>
   );

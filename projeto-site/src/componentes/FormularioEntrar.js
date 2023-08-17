@@ -20,7 +20,7 @@ const FormularioEntrar = () => {
         },
         body: JSON.stringify({ cpf, senha }),
       });
-
+  
       if (response.status === 200) {
         const responseData = await response.json();
         console.log(responseData.message);
@@ -33,6 +33,7 @@ const FormularioEntrar = () => {
       console.error('Error during login:', error);
     }
   };
+  
 
   return (
     <Container maxWidth="sm">     

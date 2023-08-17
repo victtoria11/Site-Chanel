@@ -39,7 +39,13 @@ app.post('/api/login', async (req, res) => {
     const result = await db.query(query, values);
 
     if (result.rows.length === 1) {
-      res.status(200).json({ message: 'Login successful' });
+      const user = result.rows[0];
+      const userId = user.cpf; // Use algum identificador único do usuário aqui
+
+      // Criar o token JWT
+      const token = jwt.sign({ cpf: userId }, 'seuSegredoDoJWT', { expiresIn: '1h' });
+
+      res.status(200).json({ message: 'Login successful', token });
     } else {
       res.status(401).json({ message: 'Invalid credentials' });
     }
@@ -48,6 +54,7 @@ app.post('/api/login', async (req, res) => {
     res.status(500).json({ message: 'An error occurred' });
   }
 });
+
 
 app.get('/api/user', async (req, res) => {
   const authorizationHeader = req.headers.authorization;
@@ -62,9 +69,11 @@ app.get('/api/user', async (req, res) => {
     // Verifique o token
     const decodedToken = jwt.verify(token, 'seuSegredoDoJWT');
 
-    // Use o ID do usuário decodificado para buscar os dados do usuário no banco de dados
-    const userId = decodedToken.userId;
-    const query = `SELECT cpf, nome, email FROM usuarios_chanel WHERE cpf = $1`;
+    console.log('Decoded Token:', decodedToken); // Adicione esta linha para verificar o token decodificado
+    const userId = decodedToken.cpf;
+    console.log('User ID (CPF):', userId); // Adicione esta linha para verificar o userId (CPF)
+
+    const query = `SELECT * FROM usuarios_chanel WHERE cpf = $1`;
     const result = await db.query(query, [userId]);
 
     if (result.rows.length === 1) {
@@ -76,5 +85,7 @@ app.get('/api/user', async (req, res) => {
   } catch (error) {
     console.error('Erro ao buscar dados do usuário:', error);
     res.status(500).json({ error: 'Erro ao buscar dados do usuário' });
+    console.error('Erro ao verificar token:', error);
+    res.status(401).json({ error: 'Token inválido' }); 
   }
 });

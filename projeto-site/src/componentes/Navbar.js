@@ -33,7 +33,6 @@ function Header(props) {
           >
             NOME
           </Typography>
-
         <ButtonGroup variant="outlined" size="small" sx={{ position: 'absolute', right: 50,  marginTop: 8, marginBottom: 3}}>
           <IconButton>
             <SearchIcon></SearchIcon>
@@ -85,7 +84,7 @@ function Header(props) {
                 </Link>
               ))}
               </div>
-            </Toolbar>
+      </Toolbar>
     </React.Fragment>
   );
 }
