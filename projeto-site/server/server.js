@@ -23,6 +23,8 @@ app.post('/api/cadastro', async (req, res) => {
   }
 });
 
+
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
@@ -40,7 +42,7 @@ app.post('/api/login', async (req, res) => {
 
     if (result.rows.length === 1) {
       const user = result.rows[0];
-      const userId = user.cpf; // Use algum identificador único do usuário aqui
+      const userId = user.cpf; // 
 
       // Criar o token JWT
       const token = jwt.sign({ cpf: userId }, 'seuSegredoDoJWT', { expiresIn: '1h' });
@@ -89,3 +91,16 @@ app.get('/api/user', async (req, res) => {
     res.status(401).json({ error: 'Token inválido' }); 
   }
 });
+
+app.get('/produtos', async (req, res) => {
+  try {
+    const query = 'SELECT nome, preco, path FROM produto';
+    const { rows } = await db.query(query);
+
+    res.status(200).json(rows); // 
+  } catch (error) {
+    console.error('Erro ao obter produtos:', error);
+    res.status(500).json({ error: 'Erro ao obter produtos' });
+  }
+});
+

@@ -6,6 +6,7 @@ import Header from './componentes/Navbar';
 import FormularioEntrar from './componentes/FormularioEntrar';
 import FormularioCadastro from './componentes/FormularioCadastro'; 
 import Home from './componentes/Home';
+import Product from './componentes/Produtos';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/inicio" element={<Home />} />
           <Route path="/formulario-entrar" element={<FormularioEntrar />} />
           <Route path="/formulario-cadastro" element={<FormularioCadastro />} /> 
+          <Route path="/produtos" element={<Product />} />
           
         </Routes>
       </div>
