@@ -24,12 +24,6 @@ app.post('/api/cadastro', async (req, res) => {
 });
 
 
-
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
-
 app.post('/api/login', async (req, res) => {
   const { cpf, senha } = req.body;
   console.log('Dados recebidos:', cpf, senha);
@@ -68,7 +62,6 @@ app.get('/api/user', async (req, res) => {
   const token = authorizationHeader.split(' ')[1]; // Extrai o token do header
 
   try {
-    // Verifique o token
     const decodedToken = jwt.verify(token, 'seuSegredoDoJWT');
 
     console.log('Decoded Token:', decodedToken); // Adicione esta linha para verificar o token decodificado
@@ -104,3 +97,25 @@ app.get('/produtos', async (req, res) => {
   }
 });
 
+
+app.get('/produto/:id', async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const query = 'SELECT * FROM produto WHERE id = $1';
+    const { rows } = await db.query(query, [productId]);
+
+    if (rows.length === 0) {
+      res.status(404).json({ error: 'Produto não encontrado' });
+    } else {
+      res.status(200).json(rows[0]);
+    }
+  } catch (error) {
+    console.error('Erro ao obter detalhes do produto:', error);
+    res.status(500).json({ error: 'Erro ao obter detalhes do produto' });
+  }
+});
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});

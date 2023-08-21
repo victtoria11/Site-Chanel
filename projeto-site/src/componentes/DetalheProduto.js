@@ -6,6 +6,7 @@ const DetalheProduto = () => {
   const [produto, setProduto] = useState(null);
 
   useEffect(() => {
+    console.log('useEffect is being executed');
     fetch(`http://localhost:3001/produto/${id}`)
       .then(response => response.json())
       .then(data => {

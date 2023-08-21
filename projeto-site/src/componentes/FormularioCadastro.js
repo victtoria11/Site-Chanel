@@ -48,6 +48,14 @@ const FormularioCadastro = () => {
             value={cpf}
             onChange={(e) => setCPF(e.target.value)}
             variant="standard"
+            sx={{
+              '& label.Mui-focused': {
+                color: 'black', 
+              },
+              '& .MuiInput-underline:after': {
+                borderBottomColor: 'black',
+              },
+            }}
           />
           <TextField
             label="Nome"
@@ -56,6 +64,14 @@ const FormularioCadastro = () => {
             value={nome}
             onChange={(e) => setNome(e.target.value)}
             variant="standard"
+            sx={{
+              '& label.Mui-focused': {
+                color: 'black', 
+              },
+              '& .MuiInput-underline:after': {
+                borderBottomColor: 'black',
+              },
+            }}
           />
           <TextField
             label="Email"
@@ -64,6 +80,14 @@ const FormularioCadastro = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             variant="standard"
+            sx={{
+              '& label.Mui-focused': {
+                color: 'black', 
+              },
+              '& .MuiInput-underline:after': {
+                borderBottomColor: 'black', 
+              },
+            }}
           />
           <TextField
             label="Senha"
@@ -72,6 +96,14 @@ const FormularioCadastro = () => {
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
             variant="standard"
+            sx={{
+              '& label.Mui-focused': {
+                color: 'black', // Cor do rótulo quando focado
+              },
+              '& .MuiInput-underline:after': {
+                borderBottomColor: 'black', // Cor da linha de foco
+              },
+            }}
           />
         </Box>
         <Button

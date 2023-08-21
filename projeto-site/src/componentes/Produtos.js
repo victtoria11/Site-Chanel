@@ -4,6 +4,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 const Product = () => {
   const [produtos, setProdutos] = useState([]);
@@ -26,6 +27,11 @@ const Product = () => {
     navigate(`/produto/${produto.id}`); // Use o navigate para redirecionar
   };
 
+  const handleAddToCart = (produto) => {
+    // Lógica para adicionar o produto à sacola
+    console.log('Produto adicionado à sacola:', produto);
+  };
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
       <Typography
@@ -36,27 +42,53 @@ const Product = () => {
           >
             Produtos
           </Typography>
-      <ImageList sx={{ width: '75%', gap: '20px' }} cols={3}>
-        {produtos.map((produto, index) => (
-          <ImageListItem key={index} onClick={() => handleItemClick(produto)}
-          sx={{ cursor: 'pointer',
-                borderBottom: '2px solid transparent', 
-                '&:hover': { borderBottomColor: 'black', 
-              },
-            }}>
-            <img
-              src={produto.path}
-              alt={produto.nome}
-              style={{ maxWidth: '100%', height: 'auto' }}
-            />
-            <ImageListItemBar
-              title={produto.nome}
-              subtitle={<span>{produto.preco}</span>}
-              position="below"
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
+          <ImageList sx={{ width: '75%', gap: '20px' }} cols={3}>
+  {produtos.map((produto, index) => (
+    <ImageListItem
+      key={index}
+      onClick={() => handleItemClick(produto)}
+      sx={{
+        display: 'flex',  // Adicione um display flex para organizar os itens verticalmente
+        flexDirection: 'column', // Alinhe os itens verticalmente
+        cursor: 'pointer',
+        borderBottom: '2px solid transparent',
+        '&:hover': {
+          borderBottomColor: 'black',
+        },
+      }}
+    >
+      <img
+        src={produto.path}
+        alt={produto.nome}
+        style={{ maxWidth: '100%', height: 'auto' }}
+      />
+      <ImageListItemBar
+        title={produto.nome}
+        subtitle={<span>{produto.preco}</span>}
+        position="below"
+      />
+      <Button
+        onClick={() => handleAddToCart(produto)}
+        sx={{
+          backgroundColor: 'transparent',
+          color: 'black',
+          border: 'none',
+          borderBottom: '2px solid black',
+          padding: '8px 16px',
+          marginTop: '8px',
+          cursor: 'pointer',
+          transition: 'border-color 0.3s ease-out',
+          '&:hover': {
+            borderBottomColor: 'transparent', // Tornar a borda inferior transparente ao passar o mouse
+          },
+        }}
+      >
+        Adicionar à Sacola
+      </Button>
+    </ImageListItem>
+  ))}
+</ImageList>
+
     </div>
   );
 };

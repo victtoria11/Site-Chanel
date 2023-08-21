@@ -45,6 +45,14 @@ const FormularioEntrar = () => {
             value={cpf}
             onChange={(e) => setCPF(e.target.value)}
             variant="standard"
+            sx={{
+              '& label.Mui-focused': {
+                color: 'black', 
+              },
+              '& .MuiInput-underline:after': {
+                borderBottomColor: 'black',
+              },
+            }}
             />
             <TextField
             label="Senha"
@@ -53,6 +61,14 @@ const FormularioEntrar = () => {
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
             variant="standard"
+            sx={{
+              '& label.Mui-focused': {
+                color: 'black', 
+              },
+              '& .MuiInput-underline:after': {
+                borderBottomColor: 'black', 
+              },
+            }}
             />
         </Box>
         <Button
