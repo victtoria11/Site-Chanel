@@ -8,6 +8,7 @@ import FormularioCadastro from './componentes/FormularioCadastro';
 import Home from './componentes/Home';
 import Product from './componentes/Produtos';
 import DetalheProduto from './componentes/DetalheProduto';
+import Carrinho from './componentes/Carrinho';
 
 
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/formulario-cadastro" element={<FormularioCadastro />} /> 
           <Route path="/produtos" element={<Product />} />
           <Route path="/produto/:id" element={<DetalheProduto />} />
+          <Route path="/carrinho" element={<Carrinho  cart={cart}/>} /> 
           
         </Routes>
       </div>

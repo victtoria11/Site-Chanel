@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 
 const Product = () => {
   const [produtos, setProdutos] = useState([]);
+  const [cart, setCart] = useState([]); 
   const navigate = useNavigate(); // Use o useNavigate
 
   useEffect(() => {
@@ -24,15 +25,22 @@ const Product = () => {
   const handleItemClick = (produto) => {
     console.log('Produto ID:', produto.id);
     // Redirecione o usuário para a página de detalhes do produto com base no ID do produto
-    navigate(`/produto/${produto.id}`); // Use o navigate para redirecionar
+    //navigate(`/produto/${produto.id}`); // Use o navigate para redirecionar
   };
 
   const handleAddToCart = (produto) => {
-    // Lógica para adicionar o produto à sacola
-    console.log('Produto adicionado à sacola:', produto);
+    // Verifique se o produto já está no carrinho
+    if (!cart.find(item => item.id === produto.id)) {
+      // Se o produto não estiver no carrinho, adicione-o
+      setCart([...cart, produto]);
+      console.log('Produto adicionado à sacola:', produto);
+      navigate('/carrinho');
+    }
   };
 
+
   return (
+    
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
       <Typography
             component="h3"
@@ -45,6 +53,7 @@ const Product = () => {
           <ImageList sx={{ width: '75%', gap: '20px' }} cols={3}>
   {produtos.map((produto, index) => (
     <ImageListItem
+    
       key={index}
       onClick={() => handleItemClick(produto)}
       sx={{
