@@ -94,7 +94,7 @@ app.get('/api/user', async (req, res) => {
 
 app.get('/produtos', async (req, res) => {
   try {
-    const query = 'SELECT nome, preco, path FROM produto';
+    const query = 'SELECT * FROM produto';
     const { rows } = await db.query(query);
 
     res.status(200).json(rows); // 

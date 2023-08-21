@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Grid, Typography, } from '@mui/material';
-import imgagemEscolhida from './imagens/side-view-woman-holding-perfume.jpg';
+import imgagemEscolhida from './imagens/side-view-woman-holding-perfume2.jpg';
+import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [user, setUser] = useState(null);
@@ -26,15 +28,14 @@ const Home = () => {
   
 
   const post = {
-    title: user ? `Bem-vindo(a), ${user.nome}!` : 'Bem-vindo ao nosso App',
+    title: user ? `Bem-vindo(a), ${user.nome}!` : 'Bem-vindo(a)',
     imageText: 'Texto alternativo da imagem',
   };
 
   return (
-    <Grid container>
       <Grid item md={12}>
         <Box sx={{backgroundColor: 'black'}} >
-          <Typography component="h1" variant="h4" color="white" gutterBottom sx={{ textAlign: 'center', padding: '5vh'}}>
+          <Typography component="h1" variant="h4" color="white" sx={{ textAlign: 'center', padding: '5vh'}}>
             {post.title}
           </Typography>
         </Box>
@@ -42,16 +43,39 @@ const Home = () => {
           sx={{
             p: { xs: 3, md: 6 },
             backgroundImage: `url(${imgagemEscolhida})`,
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            height: '50vh',
+            height: '40vh',
             backgroundSize: 'cover',
+            position: 'relative',
           }}
         >
-        </Box>       
+        <Box 
+          sx= {{
+            position: 'absolute',
+            bottom: '0',
+            right: '0',
+            marginBottom: '20vh',
+            marginRight: '20vh',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px'}}>
+
+          <Typography variant="h5" component="h4" >YesRany</Typography>
+        <Button variant="outlined"
+        component={Link} 
+        to="/produtos"
+        sx={{
+              
+              color: 'black',
+              border: '0.5px solid black',
+              '&:hover': {border: '0.5px solid black', bgcolor: 'black', color: 'white'}
+              
+          }}>Descruba
+        </Button>
+        </Box>
+        </Box>
+        <Box sx={{backgroundColor: 'black'}}>
+        </Box>        
       </Grid>
-    </Grid>
   );
 };
 

@@ -7,6 +7,8 @@ import FormularioEntrar from './componentes/FormularioEntrar';
 import FormularioCadastro from './componentes/FormularioCadastro'; 
 import Home from './componentes/Home';
 import Product from './componentes/Produtos';
+import DetalheProduto from './componentes/DetalheProduto';
+
 
 
 function App() {
@@ -26,6 +28,7 @@ function App() {
           <Route path="/formulario-entrar" element={<FormularioEntrar />} />
           <Route path="/formulario-cadastro" element={<FormularioCadastro />} /> 
           <Route path="/produtos" element={<Product />} />
+          <Route path="/produto/:id" element={<DetalheProduto />} />
           
         </Routes>
       </div>

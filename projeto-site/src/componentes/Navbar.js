@@ -52,7 +52,9 @@ function Header(props) {
               sx={{ borderBottom: 1,
                 borderColor: 'divider',
                 overflowX: 'auto',
-                justifyContent: 'center'}}
+                justifyContent: 'center',
+                paddingBottom: 2,
+              }}
             >
               <div style={{
                 justifyContent: 'space-between',
@@ -64,10 +66,11 @@ function Header(props) {
               {sections.map((section, index) => (
                 <Link
                   color="inherit"
-                  noWrap
                   key={section.title}
                   variant="body2"
+                  align="right"
                   href={section.url}
+                  
                   sx={{
                     p: 2,
                     flexShrink: 0,
@@ -76,7 +79,8 @@ function Header(props) {
                     transition: 'border-color 0.3s ease-in-out',
                     cursor: 'pointer',
                     textDecoration: 'none',
-                    
+                    textTransform: 'uppercase',
+
                   }}
                   onClick={() => handleSectionClick(index)}
                 >
