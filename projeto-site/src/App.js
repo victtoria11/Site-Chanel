@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState} from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Botao from './componentes/BotaoFormulario';
@@ -13,6 +13,7 @@ import Carrinho from './componentes/Carrinho';
 
 
 function App() {
+  const [cart, setCart] = useState([]);
   const sections = [
     { title: 'Início', url: '' },
     { title: 'Sobre', url: '' },
@@ -30,7 +31,7 @@ function App() {
           <Route path="/formulario-cadastro" element={<FormularioCadastro />} /> 
           <Route path="/produtos" element={<Product />} />
           <Route path="/produto/:id" element={<DetalheProduto />} />
-          <Route path="/carrinho" element={<Carrinho  cart={cart}/>} /> 
+          <Route path="/carrinho" element={<Carrinho cart={cart}/>} /> 
           
         </Routes>
       </div>

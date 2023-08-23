@@ -24,21 +24,22 @@ const Product = () => {
   // Manipulador de evento de clique no item
   const handleItemClick = (produto) => {
     console.log('Produto ID:', produto.id);
-    // Redirecione o usuário para a página de detalhes do produto com base no ID do produto
-    //navigate(`/produto/${produto.id}`); // Use o navigate para redirecionar
+    
   };
 
   const handleAddToCart = (produto) => {
-    // Verifique se o produto já está no carrinho
-    if (!cart.find(item => item.id === produto.id)) {
-      // Se o produto não estiver no carrinho, adicione-o
-      setCart([...cart, produto]);
-      console.log('Produto adicionado à sacola:', produto);
-      navigate('/carrinho');
-    }
+    // Recupere os produtos existentes do localStorage
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+  
+    // Adicione o novo produto ao carrinho
+    const updatedCart = [...storedCart, produto];
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    console.log('Produto adicionado à sacola:', produto);
+  
+    // Redirecione para a página do carrinho
+    navigate('/carrinho');
   };
-
-
+  
   return (
     
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
@@ -57,8 +58,8 @@ const Product = () => {
       key={index}
       onClick={() => handleItemClick(produto)}
       sx={{
-        display: 'flex',  // Adicione um display flex para organizar os itens verticalmente
-        flexDirection: 'column', // Alinhe os itens verticalmente
+        display: 'flex',  
+        flexDirection: 'column', 
         cursor: 'pointer',
         borderBottom: '2px solid transparent',
         '&:hover': {
