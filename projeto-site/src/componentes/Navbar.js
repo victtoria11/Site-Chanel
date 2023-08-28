@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -8,16 +8,25 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import SearchIcon from '@mui/icons-material/Search';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-
-
+import { useNavigate } from 'react-router-dom';
+import Badge from '@mui/material/Badge';
 
 function Header(props) {
+  const navigate = useNavigate();
+ 
+  const [cartCount, setCartCount] = useState(0);
   const { sections } = props;
   const [activeSection, setActiveSection] = React.useState(null);
 
   const handleSectionClick = (index) => {
     setActiveSection(index === activeSection ? null : index);
   };
+
+  useEffect(() => {
+    // Recupere os itens do carrinho do localStorage e atualize a contagem
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    setCartCount(storedCart.length);
+  },[]);
 
 
   return (
@@ -40,9 +49,19 @@ function Header(props) {
           <IconButton >
             <PermIdentityIcon></PermIdentityIcon>
           </IconButton>
-          <IconButton>
-            <ShoppingBasketIcon></ShoppingBasketIcon>
-          </IconButton>
+          
+  <IconButton onClick={() => navigate('/carrinho')}>
+  {cartCount === 0 ? ( 
+            <ShoppingBasketIcon />
+          ) : (
+            <Badge color="secondary"  badgeContent={cartCount}>
+        <ShoppingBasketIcon />
+        </Badge>
+          )}
+          
+  </IconButton>
+
+
         </ButtonGroup>
       </Toolbar>
 

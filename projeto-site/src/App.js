@@ -13,7 +13,8 @@ import Carrinho from './componentes/Carrinho';
 
 
 function App() {
-  const [cart, setCart] = useState([]);
+  
+  const [cart] = useState([]);
   const sections = [
     { title: 'Início', url: '' },
     { title: 'Sobre', url: '' },

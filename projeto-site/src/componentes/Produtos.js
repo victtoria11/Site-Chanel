@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
@@ -8,8 +7,8 @@ import Button from '@mui/material/Button';
 
 const Product = () => {
   const [produtos, setProdutos] = useState([]);
-  const [cart, setCart] = useState([]); 
-  const navigate = useNavigate(); // Use o useNavigate
+  
+  
 
   useEffect(() => {
     fetch('http://localhost:3001/produtos')
@@ -30,14 +29,11 @@ const Product = () => {
   const handleAddToCart = (produto) => {
     // Recupere os produtos existentes do localStorage
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-  
+   
     // Adicione o novo produto ao carrinho
     const updatedCart = [...storedCart, produto];
     localStorage.setItem('cart', JSON.stringify(updatedCart));
     console.log('Produto adicionado à sacola:', produto);
-  
-    // Redirecione para a página do carrinho
-    navigate('/carrinho');
   };
   
   return (
@@ -79,6 +75,7 @@ const Product = () => {
       />
       <Button
         onClick={() => handleAddToCart(produto)}
+       
         sx={{
           backgroundColor: 'transparent',
           color: 'black',
