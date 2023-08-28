@@ -8,6 +8,10 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import SearchIcon from '@mui/icons-material/Search';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import eventBus from './eventBus';
 import { useNavigate } from 'react-router-dom';
 import Badge from '@mui/material/Badge';
 
@@ -15,12 +19,41 @@ function Header(props) {
   const navigate = useNavigate();
  
   const [cartCount, setCartCount] = useState(0);
-  const { sections } = props;
+  const { sections, isLoggedIn, setIsLoggedIn  } = props;
   const [activeSection, setActiveSection] = React.useState(null);
+  const [profileMenuOpen, setProfileMenuOpen] = React.useState(false);
 
   const handleSectionClick = (index) => {
     setActiveSection(index === activeSection ? null : index);
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    eventBus.dispatchEvent(new Event('logout'));
+    setIsLoggedIn(false);
+  };
+
+  const handleLogin = () => {
+    navigate('/');
+    setIsLoggedIn(true) 
+  };
+
+  const handleProfileMenuClick = () => {
+    setProfileMenuOpen(!profileMenuOpen);
+  };
+
+  const handleProfileMenuSelect = (option) => {
+    if (option === 'detalhes') {
+      // Implement your logic for showing details
+      console.log('Show details');
+    } else if (option === 'sair') {
+      // Implement your logic for logout
+      console.log('Logout');
+    }
+
+    setProfileMenuOpen(false);
+  };
+
 
   useEffect(() => {
     // Recupere os itens do carrinho do localStorage e atualize a contagem
@@ -46,67 +79,113 @@ function Header(props) {
           <IconButton>
             <SearchIcon></SearchIcon>
           </IconButton>
-          <IconButton >
+          <IconButton onClick={handleProfileMenuClick}>
             <PermIdentityIcon></PermIdentityIcon>
           </IconButton>
           
-  <IconButton onClick={() => navigate('/carrinho')}>
-  {cartCount === 0 ? ( 
-            <ShoppingBasketIcon />
-          ) : (
-            <Badge color="secondary"  badgeContent={cartCount}>
-        <ShoppingBasketIcon />
-        </Badge>
-          )}
-          
-  </IconButton>
-
-
+          <IconButton onClick={() => navigate('/carrinho')}>
+          {cartCount === 0 ? ( 
+                    <ShoppingBasketIcon />
+                  ) : (
+                    <Badge color="secondary"  badgeContent={cartCount}>
+                <ShoppingBasketIcon />
+                </Badge>
+                  )}
+                  
+          </IconButton>
         </ButtonGroup>
+        {profileMenuOpen && (
+          <FormControl
+            sx={{
+              position: 'absolute',
+              right: 87,
+              marginTop: 8,
+              marginBottom: 3,
+              maxWidth: 'auto',
+              border: 'none',
+              justifyContent: 'left',
+            }}
+          >
+            <Select
+              open={profileMenuOpen}
+              onClose={() => setProfileMenuOpen(false)}
+              onOpen={() => setProfileMenuOpen(true)}
+              defaultValue=""
+              onChange={(e) => handleProfileMenuSelect(e.target.value)}
+              IconComponent={() => null}
+              inputProps={{
+              
+              }}
+              MenuProps={{
+                anchorOrigin: {
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                },
+                transformOrigin: {
+                  vertical: 'top',
+                  horizontal: 'left',
+                },
+              }}
+            >
+              <MenuItem value="detalhes" >Detalhes</MenuItem>
+              {isLoggedIn ? ( 
+                <MenuItem value="sair" onClick={handleLogout}>
+                  Sair
+                </MenuItem>
+              ) : (
+                <MenuItem value="entrar" onClick={handleLogin}>
+                  Entrar
+                </MenuItem>
+              )}
+            </Select>
+          </FormControl>
+        )}
       </Toolbar>
 
       <Toolbar
-              component="nav"
-              variant="dense"
-              sx={{ borderBottom: 1,
-                borderColor: 'divider',
-                overflowX: 'auto',
-                justifyContent: 'center',
-                paddingBottom: 2,
+        component="nav"
+        variant="dense"
+        sx={{
+          borderBottom: 1,
+          borderColor: 'divider',
+          overflowX: 'auto',
+          justifyContent: 'center',
+          paddingBottom: 2,
+        }}
+      >
+        <div
+          style={{
+            justifyContent: 'space-between',
+            width: '50%',
+            display: 'flex',
+            overflowX: 'auto',
+          }}
+        >
+          {sections.map((section, index) => (
+            <Link
+              color="inherit"
+              key={section.title}
+              variant="body2"
+              align="right"
+              href={section.url}
+              sx={{
+                p: 2,
+                flexShrink: 0,
+                transition: 'border-color 0.3s ease-in-out',
+                cursor: 'pointer',
+                textDecoration: 'none',
+                textTransform: 'uppercase',
+                borderBottom: '2px solid transparent',
+                '&:hover': {
+                  borderBottomColor: 'black',
+                },
               }}
+              onClick={() => handleSectionClick(index)}
             >
-              <div style={{
-                justifyContent: 'space-between',
-                width: '50%',
-                display: 'flex',
-                overflowX: 'auto',
-              }}>
-
-              {sections.map((section, index) => (
-                <Link
-                  color="inherit"
-                  key={section.title}
-                  variant="body2"
-                  align="right"
-                  href={section.url}
-                  
-                  sx={{
-                    p: 2,
-                    flexShrink: 0,
-                    borderBottom: activeSection === index ? 2 : 0,
-                    borderColor: 'primary.main',
-                    transition: 'border-color 0.3s ease-in-out',
-                    cursor: 'pointer',
-                    textDecoration: 'none',
-                    textTransform: 'uppercase',
-
-                  }}
-                  onClick={() => handleSectionClick(index)}
-                >
-                  {section.title}
-                </Link>
-              ))}
-              </div>
+              {section.title}
+            </Link>
+          ))}
+        </div>
       </Toolbar>
     </React.Fragment>
   );
