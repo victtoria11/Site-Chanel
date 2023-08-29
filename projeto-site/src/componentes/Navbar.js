@@ -66,10 +66,7 @@ function Header(props) {
   
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([]);
- 
- 
-  
-    
+
 
   useEffect(() => {
     // Recupere os itens do carrinho do localStorage e atualize a contagem

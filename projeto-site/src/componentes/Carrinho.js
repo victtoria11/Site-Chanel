@@ -17,13 +17,13 @@ import { useCarrinho } from './CarrinhoContext';
       cart.forEach((produto) => {
         if (produto && produto.preco) {
           const precoLimpo = produto.preco
-            .replace(/[^\d,]/g, '') // Remova todos os caracteres não numéricos, exceto vírgulas
-            .replace(',', '.'); // Substitua a vírgula por um ponto para que o parseFloat funcione corretamente
+            .replace(/[^\d,]/g, '')
+            .replace(',', '.');
     
           const precoNumerico = parseFloat(precoLimpo);
     
           if (!isNaN(precoNumerico)) {
-            totalEmCentavos += Math.round(precoNumerico * 100); // Converta o preço para centavos (multiplicando por 100) e some ao total
+            totalEmCentavos += Math.round(precoNumerico * 100 * produto.quantidade);
           } else {
             console.log('Preço não é um número válido:', produto.preco);
           }
@@ -32,13 +32,11 @@ import { useCarrinho } from './CarrinhoContext';
         }
       });
     
-      console.log('Total em centavos:', totalEmCentavos);
-    
-      // Converta o total de centavos para reais e formate com 2 casas decimais
       const totalEmReais = (totalEmCentavos / 100).toFixed(2);
     
-      return `${totalEmReais.replace('.', ',')}`; // Adicione o espaço após o símbolo "R$" e substitua o ponto decimal por vírgula
+      return `${totalEmReais.replace('.', ',')}`;
     };
+    
     
   const handleEsvaziarCarrinho = () => {
     // Remova todos os itens do carrinho no localStorage
@@ -56,6 +54,21 @@ import { useCarrinho } from './CarrinhoContext';
     // Atualize o localStorage com o novo valor do carrinho após a remoção do produto
     localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
+
+  const handleQuantidadeChange = (produtoId, novaQuantidade) => {
+    const updatedCart = cart.map((item) => {
+      if (item.id === produtoId) {
+        return { ...item, quantidade: parseInt(novaQuantidade) };
+      }
+      return item;
+    });
+  
+    setCart(updatedCart);
+    setCartCount(updatedCart.reduce((total, item) => total + item.quantidade, 0));
+  
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  };
+  
   
   
 
@@ -75,8 +88,19 @@ import { useCarrinho } from './CarrinhoContext';
               <div>{produto.nome}</div>
               <div>{produto.preco.replace('R$ ', 'R$')}</div>
             </div>
-            <div style={{ display: 'flex', marginLeft: '7%', width: 'auto', alignItems: 'center', whiteSpace: 'nowrap'}}>
-              <p>Un: {produto.quantidade}</p>
+            <div style={{ display: 'flex', marginLeft: '7%', width: 'auto', alignItems: 'center', whiteSpace: 'nowrap' }}>
+              <p>Un: </p>
+              <select
+                value={produto.quantidade}
+                onChange={(event) => handleQuantidadeChange(produto.id, event.target.value)}
+                style={{ marginLeft: '5px', fontSize: '12px', borderRadius: 0, color: 'black' }}
+              >
+                {Array.from({ length: 4 }, (_, index) => index + 1).map((quantidade) => (
+                  <option key={quantidade} value={quantidade}>
+                    {quantidade}
+                  </option>
+                ))}
+              </select>
             </div>
             <div style={{display: 'flex', alignItems: 'center', marginLeft:'10%'}} >
             <Button
