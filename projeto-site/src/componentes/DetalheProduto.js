@@ -52,17 +52,7 @@ const DetalheProduto = () => {
       </div>
     </Grid>
 </Grid>
-);
-    {/*<Box display={'flex'} flexDirection={'row'} maxWidth="500px">
-      <img
-        src={produto.path}
-        alt={produto.nome}
-        style={{ maxWidth: '100%', height: 'auto' }}
-      />
-      <h2>{produto.nome}</h2>
-      <p>Preço: {produto.preco}</p>
-  </Box>*/}
-  
+); 
 };
 
 export default DetalheProduto;

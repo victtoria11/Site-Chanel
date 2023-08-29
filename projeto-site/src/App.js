@@ -13,12 +13,13 @@ import Descubra from './componentes/Descubra';
 import Sobre from './componentes/Sobre';
 import Footer from './componentes/Footer';
 import eventBus from './componentes/eventBus';
+import { CarrinhoProvider } from './componentes/CarrinhoContext';
 
 
 
 function App() {
   
-  const [cart] = useState([]);
+  const [cartCount, setCartCount] = useState(0);
   const sections = [
     { title: 'Início', url: '/inicio' },
     { title: 'Sobre', url: '/Sobre' },
@@ -56,24 +57,29 @@ function App() {
 
 
   return (
+    
     <BrowserRouter>
       <div className="App">
-        <Header sections={sections} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <CarrinhoProvider>  
+        <Header sections={sections} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} cartCount={cartCount} />
+
         <Routes>
           <Route path='/' element={<Botao />} />
           <Route path="/inicio" element={<Home />} />
           <Route path="/formulario-entrar" element={<FormularioEntrar />} />
           <Route path="/formulario-cadastro" element={<FormularioCadastro />} /> 
-          <Route path="/produtos" element={<Product />} />
+          <Route path="/produtos" element={<Product setCartCount={setCartCount}/>} />
           <Route path="/produto/:id" element={<DetalheProduto />} />
           <Route path="/descubra" element={<Descubra />} />
           <Route path="/Sobre" element={<Sobre />} />
-          <Route path="/carrinho" element={<Carrinho cart={cart}/>} /> 
+          <Route path="/carrinho" element={<Carrinho setCartCount={setCartCount}/>} /> 
           
         </Routes>
         <Footer />
+        </CarrinhoProvider>
       </div>
     </BrowserRouter>
+    
   );
 }
 
