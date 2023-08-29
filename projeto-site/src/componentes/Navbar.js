@@ -107,13 +107,6 @@ function Header(props) {
   </div>
 ) : null}
 
-
-
-
-
-
-
-
           <IconButton onClick={handleProfileMenuClick}>
             <PermIdentityIcon></PermIdentityIcon>
           </IconButton>
