@@ -16,11 +16,13 @@ import { useNavigate } from 'react-router-dom';
 import Badge from '@mui/material/Badge';
 import { InputBase } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
+import { useCarrinho } from './CarrinhoContext';
 
 function Header(props) {
   const navigate = useNavigate();
+  const { setCartCount } = useCarrinho();
  
-  const [cartCount, setCartCount] = useState(0);
+  const { cartCount } = useCarrinho();
   const { sections, isLoggedIn, setIsLoggedIn  } = props;
   const [activeSection, setActiveSection] = React.useState(null);
   const [profileMenuOpen, setProfileMenuOpen] = React.useState(false);
@@ -37,8 +39,8 @@ function Header(props) {
   };
 
   const handleLogin = () => {
+    setIsLoggedIn(true); 
     navigate('/');
-    setIsLoggedIn(true) 
   };
 
   const handleProfileMenuClick = () => {
@@ -64,17 +66,13 @@ function Header(props) {
   
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([]);
- 
- 
-  
-    
+
 
   useEffect(() => {
     // Recupere os itens do carrinho do localStorage e atualize a contagem
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCartCount(storedCart.length);
   },[]);
-
 
   return (
     <React.Fragment>
@@ -218,8 +216,6 @@ function Header(props) {
     </React.Fragment>
   );
 }
-
-
 
 Header.propTypes = {
   sections: PropTypes.arrayOf(

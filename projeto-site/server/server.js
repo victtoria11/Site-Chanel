@@ -39,7 +39,7 @@ app.post('/api/login', async (req, res) => {
       const userId = user.cpf; // 
 
       // Criar o token JWT
-      const token = jwt.sign({ cpf: userId }, 'seuSegredoDoJWT', { expiresIn: '1h' });
+      const token = jwt.sign({ cpf: userId }, 'seuSegredoDoJWT', { expiresIn: '2h' });
 
       res.status(200).json({ message: 'Login successful', token });
     } else {

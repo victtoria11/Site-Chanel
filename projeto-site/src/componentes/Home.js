@@ -69,7 +69,7 @@ const Home = () => {
               border: '0.5px solid black',
               '&:hover': {border: '0.5px solid black', bgcolor: 'black', color: 'white'}
               
-          }}>Descruba
+          }}>Descubra
         </Button>
         </Box>
         </Box>
