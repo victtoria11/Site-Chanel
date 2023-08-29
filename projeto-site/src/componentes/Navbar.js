@@ -14,6 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import eventBus from './eventBus';
 import { useNavigate } from 'react-router-dom';
 import Badge from '@mui/material/Badge';
+import { InputBase } from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
 import { useCarrinho } from './CarrinhoContext';
 
 function Header(props) {
@@ -24,6 +26,7 @@ function Header(props) {
   const { sections, isLoggedIn, setIsLoggedIn  } = props;
   const [activeSection, setActiveSection] = React.useState(null);
   const [profileMenuOpen, setProfileMenuOpen] = React.useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const handleSectionClick = (index) => {
     setActiveSection(index === activeSection ? null : index);
@@ -56,6 +59,17 @@ function Header(props) {
     setProfileMenuOpen(false);
   };
 
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
+  };
+  // ...
+  
+  const [searchText, setSearchText] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+ 
+ 
+  
+    
 
   useEffect(() => {
     // Recupere os itens do carrinho do localStorage e atualize a contagem
@@ -77,9 +91,30 @@ function Header(props) {
             NOME
           </Typography>
         <ButtonGroup variant="outlined" size="small" sx={{ position: 'absolute', right: 50,  marginTop: 8, marginBottom: 3}}>
-          <IconButton>
-            <SearchIcon></SearchIcon>
-          </IconButton>
+        <IconButton onClick={toggleSearch}>
+  <SearchIcon />
+</IconButton>
+{isSearchOpen ? (
+  <div style={{ position: 'relative', marginLeft: 'auto', width: '240px' }}>
+    <div style={{ position: 'absolute', top: '50%', left: '10px', transform: 'translateY(-50%)' }}>
+      
+    </div>
+    <InputBase
+      placeholder="Pesquisar..."
+      style={{ paddingLeft: '40px' }}
+      inputProps={{ 'aria-label': 'search' }}
+      autoFocus
+    />
+  </div>
+) : null}
+
+
+
+
+
+
+
+
           <IconButton onClick={handleProfileMenuClick}>
             <PermIdentityIcon></PermIdentityIcon>
           </IconButton>
