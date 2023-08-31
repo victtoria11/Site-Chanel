@@ -30,9 +30,9 @@ const FormularioEntrar = () => {
         const responseData = await response.json();
         console.log(responseData.message);
         localStorage.setItem('authToken', responseData.token);
-        const userId = await getUserIdFromCPF(cpf); // Substitua com a função correta
+        const userId = await getUserIdFromCPF(cpf); 
 
-        // Recuperar o carrinho associado a esse usuário
+       
         const cartKey = `cart_${userId}`;
         const cartFromStorage = JSON.parse(localStorage.getItem(cartKey) || '[]');
         setCart(cartFromStorage);
