@@ -43,8 +43,6 @@ const FormularioEntrar = () => {
       console.error('Error during login:', error);
     }
   };
-  
-
 
   return (
     <Container maxWidth="sm">     
