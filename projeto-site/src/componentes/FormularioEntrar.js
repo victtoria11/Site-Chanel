@@ -4,14 +4,19 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import eventBus from './eventBus';
+import { useHistory } from 'react-router-dom';
+import { useCarrinho } from './CarrinhoContext';
 
 const FormularioEntrar = () => {
   const [cpf, setCPF] = useState('');
   const [senha, setSenha] = useState('');
 
   const navigate = useNavigate();
+  const { setCart, setCartCount } = useCarrinho();
 
   const handleSubmit = async () => {
+    eventBus.dispatchEvent(new Event('login'));
     try {
       const response = await fetch('http://localhost:3001/api/login', {
         method: 'POST',
@@ -25,6 +30,14 @@ const FormularioEntrar = () => {
         const responseData = await response.json();
         console.log(responseData.message);
         localStorage.setItem('authToken', responseData.token);
+        const userId = await getUserIdFromCPF(cpf); // Substitua com a função correta
+
+        // Recuperar o carrinho associado a esse usuário
+        const cartKey = `cart_${userId}`;
+        const cartFromStorage = JSON.parse(localStorage.getItem(cartKey) || '[]');
+        setCart(cartFromStorage);
+        setCartCount(cartFromStorage.reduce((total, item) => total + item.quantidade, 0));
+
         navigate('/inicio');
       } else {
         console.log('Login failed');
@@ -33,7 +46,6 @@ const FormularioEntrar = () => {
       console.error('Error during login:', error);
     }
   };
-  
 
   return (
     <Container maxWidth="sm">     
