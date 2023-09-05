@@ -38,7 +38,7 @@ app.post('/api/login', async (req, res) => {
       const user = result.rows[0];
       const userId = user.cpf; // 
 
-      // Criar o token JWT
+      // cria o token JWT
       const token = jwt.sign({ cpf: userId }, 'seuSegredoDoJWT', { expiresIn: '2h' });
 
       res.status(200).json({ message: 'Login successful', token });
@@ -59,20 +59,20 @@ app.get('/api/user', async (req, res) => {
     return res.status(401).json({ error: 'Token not provided' });
   }
 
-  const token = authorizationHeader.split(' ')[1]; // Extrai o token do header
+  const token = authorizationHeader.split(' ')[1]; 
 
   try {
     const decodedToken = jwt.verify(token, 'seuSegredoDoJWT');
 
-    console.log('Decoded Token:', decodedToken); // Adicione esta linha para verificar o token decodificado
+    console.log('Decoded Token:', decodedToken); 
     const userId = decodedToken.cpf;
-    console.log('User ID (CPF):', userId); // Adicione esta linha para verificar o userId (CPF)
+    console.log('User ID (CPF):', userId); 
 
     const query = `SELECT * FROM usuarios_chanel WHERE cpf = $1`;
     const result = await db.query(query, [userId]);
 
     if (result.rows.length === 1) {
-      const userData = result.rows[0]; // Dados do usuário obtidos do banco de dados
+      const userData = result.rows[0];
       res.status(200).json(userData);
     } else {
       res.status(401).json({ error: 'Usuário não encontrado' });
@@ -114,6 +114,26 @@ app.get('/produto/:id', async (req, res) => {
     res.status(500).json({ error: 'Erro ao obter detalhes do produto' });
   }
 });
+
+app.get('/api/pesquisa', async (req, res) => {
+  const { searchText } = req.query;
+
+  try {
+    
+    const query = `
+      SELECT * FROM produto
+      WHERE nome ILIKE $1
+    `;
+    const result = await db.query(query, [`%${searchText}%`]);
+
+    
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Erro ao buscar produtos:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
+});
+
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
