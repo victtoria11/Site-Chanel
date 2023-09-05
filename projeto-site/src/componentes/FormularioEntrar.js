@@ -59,6 +59,7 @@ const FormularioEntrar = () => {
             label="Senha"
             margin="normal"
             fullWidth
+            type = "password"
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
             variant="standard"

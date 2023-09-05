@@ -16,7 +16,7 @@ const data = [
     titulo: 'Arte do Detalhe', texto: 'Uma gama de serviços exclusivos', botao: 'Conheça', url: '/sobre' },
 
     { image: 'https://puls-img.chanel.com/c_limit,w_1600/q_auto:good,dpr_auto,f_auto/1688480852922-oneplpmajorpushmobile1500x1600pxxjpg_1600x1500.jpg',
-      titulo: 'GABRIELLE CHANEL ESSENCE', texto: 'Um perfume solar', botao: 'Comprar', url: '/produto/1'},
+      titulo: 'GABRIELLE CHANEL ESSENCE', texto: 'Um perfume solar', botao: 'Comprar', url: '/produto/2'},
   
 
   ];
