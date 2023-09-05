@@ -36,6 +36,7 @@ function Header(props) {
     localStorage.removeItem('authToken');
     eventBus.dispatchEvent(new Event('logout'));
     setIsLoggedIn(false);
+
   };
 
   const handleLogin = () => {
@@ -105,34 +106,13 @@ function Header(props) {
   </div>
 ) : null}
 
-
-
-
-
-
-
-
           <IconButton onClick={handleProfileMenuClick}>
             <PermIdentityIcon></PermIdentityIcon>
-          </IconButton>
-          
-          <IconButton onClick={() => navigate('/carrinho')}>
-          {cartCount === 0 ? ( 
-                    <ShoppingBasketIcon />
-                  ) : (
-                    <Badge color="secondary"  badgeContent={cartCount}>
-                <ShoppingBasketIcon />
-                </Badge>
-                  )}
-                  
-          </IconButton>
-        </ButtonGroup>
-        {profileMenuOpen && (
+            {profileMenuOpen && (
           <FormControl
             sx={{
               position: 'absolute',
-              right: 87,
-              marginTop: 8,
+              marginTop: 3,
               marginBottom: 3,
               maxWidth: 'auto',
               border: 'none',
@@ -173,6 +153,19 @@ function Header(props) {
             </Select>
           </FormControl>
         )}
+          </IconButton>
+          
+          <IconButton onClick={() => navigate('/carrinho')}>
+          {cartCount === 0 ? ( 
+                    <ShoppingBasketIcon />
+                  ) : (
+                    <Badge color="secondary"  badgeContent={cartCount}>
+                <ShoppingBasketIcon />
+                </Badge>
+                  )}
+                  
+          </IconButton>
+        </ButtonGroup>
       </Toolbar>
 
       <Toolbar

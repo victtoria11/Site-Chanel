@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import eventBus from './eventBus';
 
 const FormularioEntrar = () => {
   const [cpf, setCPF] = useState('');
@@ -12,6 +13,7 @@ const FormularioEntrar = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
+    eventBus.dispatchEvent(new Event('login'));
     try {
       const response = await fetch('http://localhost:3001/api/login', {
         method: 'POST',
@@ -33,7 +35,6 @@ const FormularioEntrar = () => {
       console.error('Error during login:', error);
     }
   };
-  
 
   return (
     <Container maxWidth="sm">     

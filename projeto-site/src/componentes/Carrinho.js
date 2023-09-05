@@ -3,14 +3,23 @@ import {Button} from '@mui/material';
 import { useCarrinho } from './CarrinhoContext';
 
   const Carrinho = () => {
-    const { cartCount, cart, setCart, setCartCount } = useCarrinho();
+    const { loggedInUserId, cartCount, cart, setCart, setCartCount } = useCarrinho();
     
   
     // Use useEffect para carregar o carrinho a partir do localStorage quando o componente for montado
     useEffect(() => {
+      if (loggedInUserId) { // Verifique se há um usuário logado
+        const cartKey = `cart_${loggedInUserId}`;
+        const cartFromStorage = JSON.parse(localStorage.getItem(cartKey) || '[]');
+        setCart(cartFromStorage);
+      }
+    }, [loggedInUserId]);
+    
+    useEffect(() => {
       const cartFromStorage = JSON.parse(localStorage.getItem('cart') || '[]');
       setCart(cartFromStorage);
     }, []);
+    
     const calcularTotal = () => {
       let totalEmCentavos = 0;
     
@@ -93,7 +102,7 @@ import { useCarrinho } from './CarrinhoContext';
               <select
                 value={produto.quantidade}
                 onChange={(event) => handleQuantidadeChange(produto.id, event.target.value)}
-                style={{ marginLeft: '5px', fontSize: '12px', borderRadius: 0, color: 'black' }}
+                style={{ marginLeft: '5px', fontSize: '12px', borderRadius: 0, color: 'black'}}
               >
                 {Array.from({ length: 4 }, (_, index) => index + 1).map((quantidade) => (
                   <option key={quantidade} value={quantidade}>
