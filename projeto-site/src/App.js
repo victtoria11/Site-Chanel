@@ -11,6 +11,7 @@ import DetalheProduto from './componentes/DetalheProduto';
 import Carrinho from './componentes/Carrinho';
 import Descubra from './componentes/Descubra';
 import Sobre from './componentes/Sobre';
+import EncHome from './componentes/EncaixeHome';
 import Footer from './componentes/Footer';
 import eventBus from './componentes/eventBus';
 import { CarrinhoProvider } from './componentes/CarrinhoContext';
@@ -22,8 +23,9 @@ function App() {
   const [cartCount, setCartCount] = useState(0);
   const sections = [
     { title: 'Início', url: '/inicio' },
-    { title: 'Sobre', url: '/Sobre' },
+    { title: 'Sobre', url: '/sobre' },
     { title: 'Contato', url: '' },
+    { title: 'Produtos', url: '/produtos' },
   ];
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -71,7 +73,8 @@ function App() {
           <Route path="/produtos" element={<Product setCartCount={setCartCount}/>} />
           <Route path="/produto/:id" element={<DetalheProduto />} />
           <Route path="/descubra" element={<Descubra />} />
-          <Route path="/Sobre" element={<Sobre />} />
+          <Route path="/sobre" element={<Sobre />} />
+          <Route path="/enc" element={<EncHome />} />
           <Route path="/carrinho" element={<Carrinho setCartCount={setCartCount}/>} /> 
           
         </Routes>

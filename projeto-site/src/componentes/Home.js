@@ -3,6 +3,7 @@ import { Box, Grid, Typography, } from '@mui/material';
 import imgagemEscolhida from './imagens/side-view-woman-holding-perfume2.jpg';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import EncHome from './EncaixeHome';
 
 const Home = () => {
   const [user, setUser] = useState(null);
@@ -74,7 +75,8 @@ const Home = () => {
         </Box>
         </Box>
         <Box sx={{backgroundColor: 'black'}}>
-        </Box>        
+        </Box>
+        <EncHome/>        
       </Grid>
   );
 };
