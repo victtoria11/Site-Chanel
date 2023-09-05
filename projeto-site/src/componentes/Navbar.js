@@ -15,13 +15,17 @@ import eventBus from './eventBus';
 import { useNavigate } from 'react-router-dom';
 import Badge from '@mui/material/Badge';
 import { InputBase } from '@mui/material';
-import Autocomplete from '@mui/material/Autocomplete';
 import { useCarrinho } from './CarrinhoContext';
+import axios from 'axios';
+import { List, ListItem, ListItemText} from '@mui/material';
+
+
 
 function Header(props) {
   const navigate = useNavigate();
   const { setCartCount } = useCarrinho();
- 
+  const [searchText, setSearchText] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const { cartCount } = useCarrinho();
   const { sections, isLoggedIn, setIsLoggedIn  } = props;
   const [activeSection, setActiveSection] = React.useState(null);
@@ -30,6 +34,33 @@ function Header(props) {
 
   const handleSectionClick = (index) => {
     setActiveSection(index === activeSection ? null : index);
+  };
+
+  
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3001/api/pesquisa?searchText=${searchText}`);
+      const data = response.data;
+      console.log(data)
+      setSearchResults(data);
+    } catch (error) {
+      console.error('Erro ao buscar produtos:', error);
+    }
+  };
+
+  const handleProductClick = (productId) => {
+    
+    navigate(`/produto/${productId}`);
+  };
+  
+  const handleSearchTextChange = (e) => {
+    const newText = e.target.value;
+    setSearchText(newText);
+  
+    
+    if (newText === '') {
+      setSearchResults([]);
+    }
   };
 
   const handleLogout = () => {
@@ -50,10 +81,10 @@ function Header(props) {
 
   const handleProfileMenuSelect = (option) => {
     if (option === 'detalhes') {
-      // Implement your logic for showing details
+      
       console.log('Show details');
     } else if (option === 'sair') {
-      // Implement your logic for logout
+      
       console.log('Logout');
     }
 
@@ -65,12 +96,8 @@ function Header(props) {
   };
   // ...
   
-  const [searchText, setSearchText] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-
-
   useEffect(() => {
-    // Recupere os itens do carrinho do localStorage e atualize a contagem
+   
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCartCount(storedCart.length);
   },[]);
@@ -86,25 +113,63 @@ function Header(props) {
             noWrap
             sx={{ flex: 1, textAlign: 'center',  marginTop: 8, marginBottom: 3}}
           >
-            NOME
+            YES, RANY
           </Typography>
         <ButtonGroup variant="outlined" size="small" sx={{ position: 'absolute', right: 50,  marginTop: 8, marginBottom: 3}}>
         <IconButton onClick={toggleSearch}>
   <SearchIcon />
 </IconButton>
+
+
 {isSearchOpen ? (
-  <div style={{ position: 'relative', marginLeft: 'auto', width: '240px' }}>
-    <div style={{ position: 'absolute', top: '50%', left: '10px', transform: 'translateY(-50%)' }}>
-      
-    </div>
+  <div style={{ width: '240px', marginLeft: 'auto' }}>
     <InputBase
+      style={{
+        width: '100%',
+        backgroundColor: 'white',
+        paddingLeft: '40px',
+      }}
       placeholder="Pesquisar..."
-      style={{ paddingLeft: '40px' }}
       inputProps={{ 'aria-label': 'search' }}
       autoFocus
+      value={searchText}
+      onChange={handleSearchTextChange}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          handleSearch();
+        }
+      }}
     />
+
+{searchResults.length > 0 && (
+      <div >
+        <ul style={{ listStyleType: 'disc', paddingLeft: '20px', paddingInlineStart: '20px' }}>
+          {searchResults.map((produto) => (
+            <li
+              key={produto.id}
+              style={{
+                cursor: 'pointer',
+                backgroundColor: 'transparent',
+                transition: 'background-color 0.3s ease-in-out',
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = 'lightgray';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = 'transparent';
+              }}
+              onClick={() => handleProductClick(produto.id)}
+            >
+              {produto.nome}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
   </div>
 ) : null}
+
+
 
           <IconButton onClick={handleProfileMenuClick}>
             <PermIdentityIcon></PermIdentityIcon>

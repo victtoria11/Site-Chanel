@@ -4,6 +4,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import IconButton from '@mui/material/IconButton';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import { useNavigate } from 'react-router-dom';
 
 
 const styles = {
@@ -44,6 +45,21 @@ const styles = {
   };
 
 const Footer = () => {
+
+  const navigate = useNavigate();
+
+  const handleClick1 = () => {
+    navigate('/produtos');
+  };
+  
+  const handleClick2 = () => {
+    navigate('/inicio');
+  };
+
+  const handleClick3 = () => {
+    navigate('/sobre');
+  };
+
   return (
     <footer style={styles.footer}>
       <Container maxWidth="lg">
@@ -51,9 +67,9 @@ const Footer = () => {
           <Grid item xs={12} sm={4} style={styles.column}>
             <Typography variant="h5">Explore</Typography>
             <div style={styles.divLink}>
-              <Link href="#" style={styles.link}>Produtos</Link>
-              <Link href="#" style={styles.link}>Sobre</Link>
-              <Link href="#" style={styles.link}>Início</Link>
+              <Link onClick={handleClick1} href="#" style={styles.link}>Produtos</Link>
+              <Link onClick={handleClick3} href="#" style={styles.link}>Sobre</Link>
+              <Link onClick={handleClick2} href="#" style={styles.link}>Início</Link>
               <Link href="#" style={styles.link}>Contatos</Link>
             </div>
           </Grid>
