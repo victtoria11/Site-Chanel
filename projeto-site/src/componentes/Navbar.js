@@ -39,7 +39,7 @@ function Header(props) {
   };
 
   const handleLogin = () => {
-    setIsLoggedIn(true); 
+    setIsLoggedIn(false); 
     navigate('/');
   };
 
