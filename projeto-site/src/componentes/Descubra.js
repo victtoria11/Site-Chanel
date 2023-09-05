@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 const Sobre = () => {
   const imageUrls = [
@@ -48,7 +49,9 @@ const Sobre = () => {
     
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', textAlign: 'justify' }}>
     <Typography variant="body1">{text}</Typography>
-    <Button  
+    <Button variant="outlined"
+      component={Link} 
+      to="/produto/2"
       sx={{
         backgroundColor: 'transparent',
         color: 'black',

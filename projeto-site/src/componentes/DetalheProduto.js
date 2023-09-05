@@ -1,14 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import {Button, Grid} from '@mui/material';
+import { useCarrinho } from './CarrinhoContext';
 
 const DetalheProduto = () => {
   const { id } = useParams();
   const [produto, setProduto] = useState(null);
+  const { cartCount, setCartCount } = useCarrinho();
+  const { cart, setCart } = useCarrinho();
 
   const handleAddToCart = (produto) => {
-    // Lógica para adicionar o produto à sacola
-    console.log('Produto adicionado à sacola:', produto);
+    const existingProductIndex = cart.findIndex((item) => item.id === produto.id);
+  
+    if (existingProductIndex !== -1) {
+      const updatedCart = [...cart];
+      updatedCart[existingProductIndex].quantidade += 1;
+  
+      setCart(updatedCart);
+  
+      localStorage.setItem('cart', JSON.stringify(updatedCart)); // Atualize com o estado do carrinho atualizado
+      setCartCount(cartCount + 1);
+    } else {
+      const updatedCart = [...cart, { ...produto, quantidade: 1 }];
+      setCart(updatedCart);
+  
+      localStorage.setItem('cart', JSON.stringify(updatedCart)); // Atualize com o estado do carrinho atualizado
+      setCartCount(cartCount + 1);
+    }
   };
 
   useEffect(() => {

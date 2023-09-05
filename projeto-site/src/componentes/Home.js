@@ -62,7 +62,7 @@ const Home = () => {
           <Typography variant="h5" component="h4" >YesRany</Typography>
         <Button variant="outlined"
         component={Link} 
-        to="/produtos"
+        to="/descubra"
         sx={{
               
               color: 'black',
